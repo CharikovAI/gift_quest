@@ -1,0 +1,30 @@
+{
+    "introduction": "Greetings! This is app for creating and providing quests. If you have already got a QR code, please scan it and start your quest!",
+    "@introduction": {
+      "description": "The conventional newborn programmer greeting"
+    },
+    "iHaveQR" : "I have QR code",
+    "@iHaveQR": {
+      "description": ""
+    },
+    "createQuest" : "Create new quest",
+    "@createQuest": {
+      "description": ""
+    },
+    "addStep" : "Create new quest",
+    "@addStep": {
+      "description": ""
+    },
+    "question" : "Your question",
+    "@question": {
+      "description": ""
+    },
+    "answer" : "Correct answer",
+    "@answer": {
+      "description": ""
+    },
+    "tip" : "Tip",
+    "@tip": {
+      "description": ""
+    }
+}
