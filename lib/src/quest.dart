@@ -17,7 +17,7 @@ class QuestState extends State<Quest> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: <Widget>[
+        children: const <Widget>[
           Text(''),
         ],
       ),

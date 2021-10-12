@@ -6,6 +6,8 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'quest.dart';
 
 class QRScanner extends StatefulWidget {
+  const QRScanner({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _QRViewExampleState();
 }
@@ -70,10 +72,9 @@ class _QRViewExampleState extends State<QRScanner> {
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    print('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('no Permission')),
+        const SnackBar(content: Text('no Permission')),
       );
     }
   }
