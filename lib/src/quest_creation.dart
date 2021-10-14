@@ -3,22 +3,23 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'dart:async';                   
+import 'dart:async';
+
+import 'quest_created.dart';                   
 
 class StoreQuest extends StatelessWidget {
   final List<Step> steps;
-  StoreQuest(this.steps);
+  final String greetings;
+  StoreQuest(this.steps, this.greetings);
 
   @override
   Widget build(BuildContext context) {
     CollectionReference quests = FirebaseFirestore.instance.collection('quests');
 
-    Future<void> addUser() {
+    Future<String> addUser() {
       return quests
         .add({
-          // TODO: change id settings
-          'id': 1,
-          // TODO: add greetings
+          'greetings': greetings,
           'steps': {
             for (int i = 0; i < steps.length; i++)
               i.toString(): {
@@ -26,28 +27,29 @@ class StoreQuest extends StatelessWidget {
                 'answer': steps[i].answer,
                 'tip': steps[i].tip
               }
-          }, // Stokes and Sons
+          },
         })
-        .then((value) => {})
+        .then((value) {return value.id;})
         .catchError((error) => {});
     }
 
     return AlertDialog(
-      title: Text('Confirm quest creation'),
-      content: Text("It's impossible to edit quest after confirmation"),
+      title: Text(AppLocalizations.of(context)!.confirmQuestCreation),
+      content: Text(AppLocalizations.of(context)!.impossibleToEditAfterConfirmation),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: Text(AppLocalizations.of(context)!.cancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         TextButton(
-          child: const Text('Confirm'),
-          onPressed: () {
-            addUser();
-            // TODO: navigate to qr code with the link of created quest
-            Navigator.of(context).pop();
+          child: Text(AppLocalizations.of(context)!.confirm),
+          onPressed: () async {
+            var res = await addUser();
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+              builder: (context) => QuestCreated(res),
+            ), (route) => false);
           },
         ),
       ],
@@ -68,6 +70,7 @@ class QuestCreationState extends State<QuestCreation> {
   bool _error = false;
 
   List<Step> steps = [];
+  late TextEditingController greetingsController = TextEditingController();
 
   void initializeFlutterFire() async {
     try {
@@ -122,7 +125,7 @@ class QuestCreationState extends State<QuestCreation> {
     showDialog<StoreQuest>(
       context: context,
       builder: (BuildContext context) {
-        return StoreQuest(steps);
+        return StoreQuest(steps, greetingsController.text);
       },
     );
   }
@@ -154,6 +157,14 @@ class QuestCreationState extends State<QuestCreation> {
                   IconButton(
                     onPressed: () => setState(() {
                       steps.removeAt(index);
+                      final snackBar = SnackBar(
+                        content: Text(AppLocalizations.of(context)!.stepDeleted),
+                        action: SnackBarAction(
+                          label: AppLocalizations.of(context)!.undo,
+                          onPressed: () {},
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }), 
                     icon: const Icon(Icons.delete)
                   ),
@@ -176,32 +187,33 @@ class QuestCreationState extends State<QuestCreation> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create new quest'),
+        title: Text(AppLocalizations.of(context)!.createNewQuest),
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(10),
+              Padding(
+                padding: const EdgeInsets.all(10),
                 child: TextField(
                   autofocus: false,
+                  controller: greetingsController,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Your greeting to quest'//AppLocalizations.of(context)!.question + '*',
+                    border: const OutlineInputBorder(),
+                    labelText: AppLocalizations.of(context)!.yourGreetings + '*',
                   ),
                   maxLines: 2,
                 ),
               ),
-              const Text('Steps:'),
+              Text(AppLocalizations.of(context)!.steps + ':'),
               if (steps.isNotEmpty) 
                 for (int i = 0; i < steps.length; i++)
                   _buildItem(context, i)
               else 
-                const Text('You have not any steps yet. \nPress + button to add first step.'),
+                Text(AppLocalizations.of(context)!.youDontHaveSteps, textAlign: TextAlign.center,),
               ElevatedButton(
                 onPressed: () => _storeNewQuest(), 
-                child: const Text('Create quest')
+                child: Text(AppLocalizations.of(context)!.createQuest)
               )
           ],),
         )
@@ -286,13 +298,13 @@ class TodoDialog extends StatelessWidget {
       ],),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: Text(AppLocalizations.of(context)!.cancel),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         TextButton(
-          child: question == null ? const Text('Add'): const Text('Edit'),
+          child: Text(question == null ? AppLocalizations.of(context)!.add: AppLocalizations.of(context)!.edit),
           onPressed: () {
             final step = Step(question: questionController.text, answer: answerController.text, tip: tipController.text);
             Navigator.of(context).pop(step);

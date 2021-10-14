@@ -5,5 +5,22 @@
     "addStep": "Crear un quest nuevo",
     "question": "La pregunta",
     "answer": "",
-    "tip": ""
+    "tip": "",
+    "confirmQuestCreation": "",
+    "impossibleToEditAfterConfirmation": "",
+    "cancel": "",
+    "confirm": "",
+    "stepDeleted": "",
+    "undo": "",
+    "createNewQuest": "",
+    "yourGreetings": "",
+    "steps": "",
+    "youDontHaveSteps": "",
+    "add": "",
+    "edit": "",
+    "questCreated": "",
+    "saveQR": "",
+    "copied": "",
+    "pleaseSaveQR": "",
+    "iSaveCode": ""
 }

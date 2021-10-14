@@ -26,5 +26,73 @@
     "tip" : "Tip",
     "@tip": {
       "description": ""
+    },
+    "confirmQuestCreation" : "Confirm quest creation",
+    "@confirmQuestCreation": {
+      "description": ""
+    },
+    "impossibleToEditAfterConfirmation" : "It's impossible to edit quest after confirmation",
+    "@impossibleToEditAfterConfirmation": {
+      "description": ""
+    },
+    "cancel" : "Cancel",
+    "@cancel": {
+      "description": ""
+    },
+    "confirm" : "Confirm",
+    "@confirm": {
+      "description": ""
+    },
+    "stepDeleted" : "Step deleted",
+    "@stepDeleted": {
+      "description": ""
+    },
+    "undo" : "Undo",
+    "@undo": {
+      "description": ""
+    },
+    "createNewQuest" : "Create new quest",
+    "@createNewQuest": {
+      "description": ""
+    },
+    "yourGreetings" : "Your greetings",
+    "@yourGreetings": {
+      "description": ""
+    },
+    "steps" : "Steps",
+    "@steps": {
+      "description": ""
+    },
+    "youDontHaveSteps" : "You don't have steps yet.\nPlease, press + button to add step.",
+    "@youDontHaveSteps": {
+      "description": ""
+    },
+    "add" : "Add",
+    "@add": {
+      "description": ""
+    },
+    "edit" : "Edit",
+    "@edit": {
+      "description": ""
+    },
+    "questCreated" : "Quest created!",
+    "@questCreated": {
+      "description": ""
+    },
+    "saveQR" : "You've created a quest. Please save the id or qr code and share it to your friend.",
+    "@saveQR": {
+      "description": ""
+    },
+    "copied" : "Copied",
+    "@copied": {
+      "description": ""
+    },
+    "pleaseSaveQR" : "Please save QR or code because it wouldn't be stored on your phone.",
+    "@pleaseSaveQR": {
+      "description": ""
+    },
+    "iSaveCode" : "I save the code",
+    "@iSaveCode": {
+      "description": ""
     }
 }
