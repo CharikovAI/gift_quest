@@ -66,7 +66,7 @@ class _QRViewExampleState extends State<QRScanner> {
     });
     controller.scannedDataStream.listen((scanData) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => Quest(questId: scanData.code),
+        builder: (context) => Quest(),
       ));
     });
   }

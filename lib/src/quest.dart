@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:gift_quest/src/intro.dart';
+import 'package:provider/provider.dart';
+
+import '../main.dart';
 
 class Quest extends StatefulWidget {
-  final String questId;
-  
-  const Quest({Key? key, 
-    required this.questId,  
-  }) : super(key: key);
-
   @override
-  State<StatefulWidget> createState() => QuestState(questId);
+  State<StatefulWidget> createState() => QuestState();
 }
 
 class QuestState extends State<Quest> {
-  QuestState(this.questId);
 
-  final String questId;
+  late String? questId;
 
   @override
   Widget build(BuildContext context) {
+    questId = Provider.of<Data>(context).questId;
     return Scaffold(
       body: Column(
-        children: const <Widget>[
+        children: <Widget>[
           Text(''),
+          ElevatedButton(onPressed:(){ 
+            Provider.of<Data>(context, listen: false).updateStoredData('');
+            Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Intro(),
+                ));
+          }, 
+          child: Text(''))
         ],
       ),
     );

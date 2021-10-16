@@ -57,7 +57,7 @@ class LoadQuestState extends State<LoadQuest> {
               onPressed: () {
                 Provider.of<Data>(context, listen: false).updateStoredData(codeController.text);
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Quest(questId: codeController.text),
+                  builder: (context) => Quest(),
                 ));
               }, 
               child: Text('Start my quest!')
