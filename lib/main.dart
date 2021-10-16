@@ -7,8 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'src/intro.dart';
 import 'src/quest.dart';
 
-void main() async {
-
+void main() {
   runApp(App());
 }
 

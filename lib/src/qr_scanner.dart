@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import '../main.dart';
 import 'quest.dart';
 
 class QRScanner extends StatefulWidget {
@@ -65,6 +67,7 @@ class _QRViewExampleState extends State<QRScanner> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
+      Provider.of<Data>(context, listen: false).updateStoredData(scanData.code);
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => Quest(),
       ));
