@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
+import '../main.dart';
 import 'qr_scanner.dart';
 import 'quest.dart';
 
@@ -53,8 +55,9 @@ class LoadQuestState extends State<LoadQuest> {
             ),
             ElevatedButton(
               onPressed: () {
+                Provider.of<Data>(context, listen: false).updateStoredData(codeController.text);
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Quest(questId: codeController.text,),
+                  builder: (context) => Quest(questId: codeController.text),
                 ));
               }, 
               child: Text('Start my quest!')
