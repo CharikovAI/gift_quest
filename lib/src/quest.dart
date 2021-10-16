@@ -8,10 +8,13 @@ class Quest extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => QuestState();
+  State<StatefulWidget> createState() => QuestState(questId);
 }
 
 class QuestState extends State<Quest> {
+  QuestState(this.questId);
+
+  final String questId;
 
   @override
   Widget build(BuildContext context) {

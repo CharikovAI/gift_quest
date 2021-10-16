@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gift_quest/src/start_quest.dart';
 
-import 'qr_scanner.dart';
 import 'quest_creation.dart';
 
 class Intro extends StatelessWidget {
@@ -25,7 +25,7 @@ class Intro extends StatelessWidget {
               //style: style,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => QRScanner(),
+                  builder: (context) => LoadQuest(),
                 ));
               },
               child: Text(AppLocalizations.of(context)!.iHaveQR),
