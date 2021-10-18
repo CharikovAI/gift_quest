@@ -45,6 +45,7 @@ class QuestApp extends StatelessWidget {
 
 class Data extends ChangeNotifier {
   String? questId;
+  int? currentStep;
 
   Data() {
     init();
@@ -53,12 +54,24 @@ class Data extends ChangeNotifier {
   init() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     questId = prefs.getString('questId');
+    currentStep = prefs.getInt('currentStep');
     notifyListeners();
   }
   
   updateStoredData(newQuestId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    questId = newQuestId;
+    currentStep = 0;
     await prefs.setString('questId', newQuestId);
+    await prefs.setInt('currentStep', 0);
+    notifyListeners();
+  }
+
+  updateCurrentStep() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int currentStep =  prefs.getInt('currentStep') ?? 0;
+    await prefs.setInt('currentStep', currentStep + 1);
+    currentStep += 1;
     notifyListeners();
   }
 }
