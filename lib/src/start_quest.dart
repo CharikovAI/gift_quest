@@ -56,9 +56,9 @@ class LoadQuestState extends State<LoadQuest> {
             ElevatedButton(
               onPressed: () {
                 Provider.of<Data>(context, listen: false).updateStoredData(codeController.text);
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Quest(),
-                ));
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                        builder: (context) => Quest(),
+                      ), (route) => false);
               }, 
               child: Text('Start my quest!')
             )
