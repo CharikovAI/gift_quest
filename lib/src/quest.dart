@@ -124,8 +124,7 @@ class QuestState extends State<Quest> {
                       )
                     ],
                   ],
-                  ElevatedButton(onPressed:() {   
-                    print(currentStep);
+                  ElevatedButton(onPressed:() {
                     if (currentStep == 0) {
                       setState(() {
                         currentStep += 1;
@@ -138,10 +137,10 @@ class QuestState extends State<Quest> {
                       });
                       Provider.of<Data>(context, listen: false).updateCurrentStep();
                     } else {
-                      Provider.of<Data>(context, listen: false).updateStoredData('');
                       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                         builder: (context) => Intro(),
                       ), (route) => false);
+                      Provider.of<Data>(context, listen: false).deleteStoredQuestId();
                     }
                   }, 
                   child: Text('Next'))

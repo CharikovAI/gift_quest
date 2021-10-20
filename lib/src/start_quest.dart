@@ -55,10 +55,10 @@ class LoadQuestState extends State<LoadQuest> {
             ),
             ElevatedButton(
               onPressed: () {
-                Provider.of<Data>(context, listen: false).updateStoredData(codeController.text);
+                Provider.of<Data>(context, listen: false).setStoredQuestId(codeController.text);
                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                        builder: (context) => Quest(),
-                      ), (route) => false);
+                  builder: (context) => Quest(),
+                ), (route) => false);
               }, 
               child: Text('Start my quest!')
             )
