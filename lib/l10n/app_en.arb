@@ -11,7 +11,7 @@
     "@createQuest": {
       "description": ""
     },
-    "addStep" : "Create new quest",
+    "addStep" : "Add step",
     "@addStep": {
       "description": ""
     },
@@ -93,6 +93,54 @@
     },
     "iSaveCode" : "I save the code",
     "@iSaveCode": {
+      "description": ""
+    },
+    "uploadQuest" : "Upload your quest",
+    "@uploadQuest": {
+      "description": ""
+    },
+    "insertCode" : "Please, insert your code or scan QR!",
+    "@insertCode": {
+      "description": ""
+    },
+    "startMyQuest" : "Start my quest!",
+    "@startMyQuest": {
+      "description": ""
+    },
+    "ok" : "OK",
+    "@ok": {
+      "description": ""
+    },
+    "somethingWentWrong" : "Something went wrong",
+    "@somethingWentWrong": {
+      "description": ""
+    },
+    "toFirstScreen" : "Go to first screen",
+    "@toFirstScreen": {
+      "description": ""
+    },
+    "questDoesnotExist" : "Quest does't exist.\n Please, enter the correct code.",
+    "@questDoesnotExist": {
+      "description": ""
+    },
+    "back" : "Go back",
+    "@back": {
+      "description": ""
+    },
+    "next" : "Next",
+    "@next": {
+      "description": ""
+    },
+    "theEnd" : "That's the end.",
+    "@theEnd": {
+      "description": ""
+    },
+    "hopeYouHaveEnjoyed" : "Hope you have enjoyed your quest!",
+    "@hopeYouHaveEnjoyed": {
+      "description": ""
+    },
+    "close" : "Close",
+    "@close": {
       "description": ""
     }
 }

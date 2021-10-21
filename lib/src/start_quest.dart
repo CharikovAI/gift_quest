@@ -34,12 +34,12 @@ class LoadQuestState extends State<LoadQuest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Uplaod your quest'),),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.uploadQuest)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Please, insert your code or scan QR!'),
+            Text(AppLocalizations.of(context)!.insertCode),
             Padding(
               padding: const EdgeInsets.all(10),
               child: TextField(
@@ -59,7 +59,7 @@ class LoadQuestState extends State<LoadQuest> {
                   builder: (context) => Quest(),
                 ), (route) => false);
               }, 
-              child: Text('Start my quest!')
+              child: Text(AppLocalizations.of(context)!.startMyQuest)
             )
           ],
       ),),

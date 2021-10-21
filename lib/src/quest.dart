@@ -49,7 +49,7 @@ class QuestState extends State<Quest> {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: Text('Tip'),//Text(AppLocalizations.of(context)!.tip),
+        title: Text(AppLocalizations.of(context)!.tip),
         content: InkWell(
           child: Text(
             tip,
@@ -60,7 +60,7 @@ class QuestState extends State<Quest> {
             onPressed: () {
               Navigator.pop(context);
             },  
-            child: const Text('OK'),
+            child: Text(AppLocalizations.of(context)!.ok),
           ),
         ],
       ),
@@ -101,13 +101,13 @@ class QuestState extends State<Quest> {
               return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Something went wrong"),
+                    Text(AppLocalizations.of(context)!.somethingWentWrong),
                     ElevatedButton(onPressed:() {
                         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                               builder: (context) => Intro(),
                             ), (route) => false);
                       }, 
-                      child: Text('To first screen'))
+                      child: Text(AppLocalizations.of(context)!.toFirstScreen))
                   ],);
             }
 
@@ -115,13 +115,13 @@ class QuestState extends State<Quest> {
               return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Document does not exist"),
+                    Text(AppLocalizations.of(context)!.questDoesnotExist),
                     ElevatedButton(onPressed:() {
                         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                               builder: (context) => Intro(),
                             ), (route) => false);
                       }, 
-                      child: Text('Back'))
+                      child: Text(AppLocalizations.of(context)!.back))
                   ],);
             }
 
@@ -186,7 +186,7 @@ class QuestState extends State<Quest> {
                       }
                     }
                   }, 
-                  child: Text('Next'))
+                  child: Text(AppLocalizations.of(context)!.next))
                 ],
               );
             }

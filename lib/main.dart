@@ -35,7 +35,7 @@ class QuestApp extends StatelessWidget {
       ],
       supportedLocales: const [
         Locale('en', ''), // English, no country code
-        Locale('es', ''), // Spanish, no country code
+        //Locale('es', ''), // Spanish, no country code
         Locale('ru', ''), // Russian, no country code
       ],
       home: Provider.of<Data>(context).questId?.isEmpty ?? true ? Intro() : Quest()
