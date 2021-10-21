@@ -8,9 +8,10 @@ import 'dart:async';
 import 'quest_created.dart';                   
 
 class StoreQuest extends StatelessWidget {
+  const StoreQuest(this.steps, this.greetings, {Key? key}) : super(key: key);
+  
   final List<Step> steps;
   final String greetings;
-  StoreQuest(this.steps, this.greetings);
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +73,8 @@ class QuestCreationState extends State<QuestCreation> {
   List<Step> steps = [];
   late TextEditingController greetingsController = TextEditingController();
 
+  bool greetingsValidator = true;
+
   void initializeFlutterFire() async {
     try {
       await Firebase.initializeApp();
@@ -92,11 +95,9 @@ class QuestCreationState extends State<QuestCreation> {
   }
 
   _addStep() async {
-    final step = await showDialog<Step>(
-      context: context,
-      builder: (BuildContext context) {
-        return TodoDialog(null, null, null);
-      },
+    final step = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => StepDialog(null, null, null)),
     );
 
     if (step != null) {
@@ -107,11 +108,9 @@ class QuestCreationState extends State<QuestCreation> {
   }
 
   _editStep(int index) async {
-    final step = await showDialog<Step>(
-      context: context,
-      builder: (BuildContext context) {
-        return TodoDialog(steps[index].question, steps[index].answer, steps[index].tip);
-      },
+    final step = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => StepDialog(steps[index].question, steps[index].answer, steps[index].tip)),
     );
 
     if (step != null) {
@@ -121,13 +120,24 @@ class QuestCreationState extends State<QuestCreation> {
     }
   }
 
-  _storeNewQuest() {
-    showDialog<StoreQuest>(
-      context: context,
-      builder: (BuildContext context) {
-        return StoreQuest(steps, greetingsController.text);
-      },
+  _storeNewQuest() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => StoreQuest(steps, greetingsController.text))
     );
+  }
+
+  _checkGreetingsValidator() {
+    if (greetingsController.text == null || greetingsController.text == '') {
+      setState(() {
+        greetingsValidator = false;
+      });
+    }
+    else {
+      setState(() {
+        greetingsValidator = true;
+      });
+    }
   }
 
   Widget _buildItem(BuildContext context, int index) {
@@ -201,6 +211,10 @@ class QuestCreationState extends State<QuestCreation> {
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText: AppLocalizations.of(context)!.yourGreetings + '*',
+                    labelStyle: (!greetingsValidator) ? const TextStyle(color:Colors.red) : null,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:  (!greetingsValidator) ?  const BorderSide(color: Colors.red) : const BorderSide(color: Colors.blue),
+                    ),
                   ),
                   maxLines: 2,
                 ),
@@ -212,7 +226,12 @@ class QuestCreationState extends State<QuestCreation> {
               else 
                 Text(AppLocalizations.of(context)!.youDontHaveSteps, textAlign: TextAlign.center,),
               ElevatedButton(
-                onPressed: () => _storeNewQuest(), 
+                onPressed: () {
+                  _checkGreetingsValidator();
+                  if (greetingsValidator) {
+                    _storeNewQuest();
+                  }
+                },
                 child: Text(AppLocalizations.of(context)!.createQuest)
               )
           ],),
@@ -238,24 +257,56 @@ class Step {
   }
 }
 
-class TodoDialog extends StatelessWidget {
-  TodoDialog(this.question, this.answer, this.tip, {Key? key}) : super(key: key);
-
+class StepDialog extends StatefulWidget {
+  StepDialog(this.question, this.answer, this.tip, {Key? key}) : super(key: key);
   String? question;
   String? answer;
   String? tip;
+
+  @override
+  State<StepDialog> createState() => StepDialogState();
+}
+
+class StepDialogState extends State<StepDialog> {
+
+  TextEditingController questionController = TextEditingController();
+  TextEditingController answerController= TextEditingController();
+  TextEditingController tipController = TextEditingController();
+
+  bool questionValidator = true;
+  bool answerValidator = true;
+
+  @override
+  void initState() {
+    questionController = TextEditingController(text: widget.question);
+    answerController= TextEditingController(text: widget.answer);
+    tipController = TextEditingController(text: widget.tip);
+    super.initState();
+  }
+
+  _checkInputs() {
+    if (questionController.text == null || questionController.text == '') {
+      setState(() {
+        questionValidator = false;
+      });
+    } 
+    else {
+      questionValidator = true;
+    }
+    if (answerController.text == null || answerController.text == '') {
+      setState(() {
+        answerValidator = false;
+      });
+    } 
+    else {
+      answerValidator = true;
+    }
+  }
   
-  
-  late TextEditingController questionController = TextEditingController();
-  late TextEditingController answerController = TextEditingController();
-  late TextEditingController tipController = TextEditingController();
 
 
   @override
   Widget build(BuildContext context) {
-    questionController = TextEditingController(text: question);
-    answerController= TextEditingController(text: answer);
-    tipController = TextEditingController(text: tip);
     return AlertDialog(
       title: Text(AppLocalizations.of(context)!.addStep),
       content: Column(children: [
@@ -267,6 +318,10 @@ class TodoDialog extends StatelessWidget {
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               labelText: AppLocalizations.of(context)!.question + '*',
+              labelStyle: (!questionValidator) ? const TextStyle(color:Colors.red) : null,
+              focusedBorder: OutlineInputBorder(
+                borderSide:  (!questionValidator) ?  const BorderSide(color: Colors.red) : const BorderSide(color: Colors.blue),
+              ),
             ),
             maxLines: 2,
           ),
@@ -279,6 +334,10 @@ class TodoDialog extends StatelessWidget {
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               labelText: AppLocalizations.of(context)!.answer + '*',
+              labelStyle: (!answerValidator) ? const TextStyle(color:Colors.red) : null,
+              focusedBorder: OutlineInputBorder(
+                borderSide:  (!answerValidator) ?  const BorderSide(color: Colors.red) : const BorderSide(color: Colors.blue),
+              ),
             ),
             maxLines: 2,
           ),
@@ -304,10 +363,13 @@ class TodoDialog extends StatelessWidget {
           },
         ),
         TextButton(
-          child: Text(question == null ? AppLocalizations.of(context)!.add: AppLocalizations.of(context)!.edit),
+          child: Text(widget.question == null ? AppLocalizations.of(context)!.add: AppLocalizations.of(context)!.edit),
           onPressed: () {
-            final step = Step(question: questionController.text, answer: answerController.text, tip: tipController.text);
-            Navigator.of(context).pop(step);
+            _checkInputs();
+            if (questionValidator && answerValidator) {
+              final step = Step(question: questionController.text, answer: answerController.text, tip: tipController.text);
+              Navigator.of(context).pop(step);
+            }
           },
         ),
       ],
