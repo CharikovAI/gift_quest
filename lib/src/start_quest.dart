@@ -8,6 +8,8 @@ import 'qr_scanner.dart';
 import 'quest.dart';
 
 class LoadQuest extends StatefulWidget {
+  const LoadQuest({Key? key}) : super(key: key);
+
 
   @override
   State<StatefulWidget> createState() => LoadQuestState();
@@ -20,7 +22,7 @@ class LoadQuestState extends State<LoadQuest> {
   void _scanQR(BuildContext context) async {
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => QRScanner()),
+      MaterialPageRoute(builder: (context) => const QRScanner()),
     );
 
     if (result != null && result != []) {
@@ -56,7 +58,7 @@ class LoadQuestState extends State<LoadQuest> {
               onPressed: () {
                 Provider.of<Data>(context, listen: false).setStoredQuestId(codeController.text);
                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                  builder: (context) => Quest(),
+                  builder: (context) => const Quest(),
                 ), (route) => false);
               }, 
               child: Text(AppLocalizations.of(context)!.startMyQuest)

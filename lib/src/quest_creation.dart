@@ -128,7 +128,7 @@ class QuestCreationState extends State<QuestCreation> {
   }
 
   _checkGreetingsValidator() {
-    if (greetingsController.text == null || greetingsController.text == '') {
+    if (greetingsController.text.isEmpty) {
       setState(() {
         greetingsValidator = false;
       });
@@ -257,6 +257,7 @@ class Step {
   }
 }
 
+// ignore: must_be_immutable
 class StepDialog extends StatefulWidget {
   StepDialog(this.question, this.answer, this.tip, {Key? key}) : super(key: key);
   String? question;
@@ -285,7 +286,7 @@ class StepDialogState extends State<StepDialog> {
   }
 
   _checkInputs() {
-    if (questionController.text == null || questionController.text == '') {
+    if (questionController.text.isEmpty) {
       setState(() {
         questionValidator = false;
       });
@@ -293,7 +294,7 @@ class StepDialogState extends State<StepDialog> {
     else {
       questionValidator = true;
     }
-    if (answerController.text == null || answerController.text == '') {
+    if (answerController.text.isEmpty) {
       setState(() {
         answerValidator = false;
       });

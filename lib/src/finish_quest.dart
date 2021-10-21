@@ -5,6 +5,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'intro.dart';
 
 class FinishQuest extends StatelessWidget {
+  const FinishQuest({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +19,7 @@ class FinishQuest extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                  builder: (context) => Intro(),
+                  builder: (context) => const Intro(),
                 ), (route) => false);
               }, 
               child: Text(AppLocalizations.of(context)!.close)

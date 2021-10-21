@@ -8,15 +8,17 @@ import 'src/intro.dart';
 import 'src/quest.dart';
 
 void main() {
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => Data(),
-      child: MaterialApp(
+      child: const MaterialApp(
           home: QuestApp()
       ),
     );
@@ -24,6 +26,8 @@ class App extends StatelessWidget {
 }
 
 class QuestApp extends StatelessWidget {
+  const QuestApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,7 +42,7 @@ class QuestApp extends StatelessWidget {
         //Locale('es', ''), // Spanish, no country code
         Locale('ru', ''), // Russian, no country code
       ],
-      home: Provider.of<Data>(context).questId?.isEmpty ?? true ? Intro() : Quest()
+      home: Provider.of<Data>(context).questId?.isEmpty ?? true ? const Intro() : const Quest()
     );
   }
 }

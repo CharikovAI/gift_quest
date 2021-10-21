@@ -5,7 +5,7 @@ import 'package:gift_quest/main.dart';
 
 Widget createHomeScreen() => ChangeNotifierProvider<Data>(
   create: (_) => Data(),
-  child: MaterialApp(
+  child: const MaterialApp(
     home: QuestApp()
   ),
 );

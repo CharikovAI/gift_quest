@@ -7,7 +7,7 @@ import 'intro.dart';
 
 class QuestCreated extends StatelessWidget {
 
-  QuestCreated(this.questId);
+  const QuestCreated(this.questId, {Key? key}) : super(key: key);
 
   final String questId;
 
@@ -17,7 +17,7 @@ class QuestCreated extends StatelessWidget {
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.questCreated)),
       body: Column(children: [
         Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Text(AppLocalizations.of(context)!.saveQR,
             textAlign: TextAlign.center,
           ),
@@ -28,12 +28,10 @@ class QuestCreated extends StatelessWidget {
           size: 320,
           gapless: false,
           errorStateBuilder: (cxt, err) {
-            return Container(
-              child: Center(
-                child: Text(
-                  err.toString(),
-                  textAlign: TextAlign.center,
-                ),
+            return Center(
+              child: Text(
+                err.toString(),
+                textAlign: TextAlign.center,
               ),
             );
           },
@@ -59,14 +57,14 @@ class QuestCreated extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Text(AppLocalizations.of(context)!.pleaseSaveQR,
             textAlign: TextAlign.center,
           ),
         ),
         ElevatedButton(
           onPressed: () => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-              builder: (context) => Intro(),
+              builder: (context) => const Intro(),
             ), (route) => false), 
           child: Text(AppLocalizations.of(context)!.iSaveCode)
           )

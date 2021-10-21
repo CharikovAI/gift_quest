@@ -104,7 +104,7 @@ class QuestState extends State<Quest> {
                     Text(AppLocalizations.of(context)!.somethingWentWrong),
                     ElevatedButton(onPressed:() {
                         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                              builder: (context) => Intro(),
+                              builder: (context) => const Intro(),
                             ), (route) => false);
                       }, 
                       child: Text(AppLocalizations.of(context)!.toFirstScreen))
@@ -118,7 +118,7 @@ class QuestState extends State<Quest> {
                     Text(AppLocalizations.of(context)!.questDoesnotExist),
                     ElevatedButton(onPressed:() {
                         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                              builder: (context) => Intro(),
+                              builder: (context) => const Intro(),
                             ), (route) => false);
                       }, 
                       child: Text(AppLocalizations.of(context)!.back))
@@ -181,7 +181,7 @@ class QuestState extends State<Quest> {
                       if (answerValidator) {
                         Provider.of<Data>(context, listen: false).deleteStoredQuestId();
                         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                          builder: (context) => FinishQuest(),
+                          builder: (context) => const FinishQuest(),
                         ), (route) => false);
                       }
                     }

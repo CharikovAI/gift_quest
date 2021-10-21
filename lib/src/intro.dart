@@ -5,6 +5,7 @@ import 'package:gift_quest/src/start_quest.dart';
 import 'quest_creation.dart';
 
 class Intro extends StatelessWidget {
+  const Intro({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class Intro extends StatelessWidget {
               //style: style,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LoadQuest(),
+                  builder: (context) => const LoadQuest(),
                 ));
               },
               child: Text(AppLocalizations.of(context)!.iHaveQR),
@@ -34,7 +35,7 @@ class Intro extends StatelessWidget {
               //style: style,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => QuestCreation(),
+                  builder: (context) => const QuestCreation(),
                 ));
               },
               child: Text(AppLocalizations.of(context)!.createQuest),
