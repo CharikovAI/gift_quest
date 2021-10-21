@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gift_quest/src/intro.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,7 +23,7 @@ class QuestState extends State<Quest> {
   bool _error = false;
 
   TextEditingController answerController = TextEditingController();
-  bool? answerValidator;
+  bool answerValidator = true;
 
   void initializeFlutterFire() async {
     try {
@@ -67,6 +66,19 @@ class QuestState extends State<Quest> {
     ); 
   }
 
+  void _checkAnswer(String correctAnswer) {
+    if (answerController.text.toLowerCase() != correctAnswer.toLowerCase()) {
+      setState(() {
+        answerValidator = false;
+      });
+    }
+    else {
+      setState(() {
+        answerValidator = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if(_error) {
@@ -85,11 +97,31 @@ class QuestState extends State<Quest> {
           future: users.doc(questId).get(),
           builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             if (snapshot.hasError) {
-              return Text("Something went wrong");
+              return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Something went wrong"),
+                    ElevatedButton(onPressed:() {
+                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                              builder: (context) => Intro(),
+                            ), (route) => false);
+                      }, 
+                      child: Text('To first screen'))
+                  ],);
             }
 
             if (snapshot.hasData && !snapshot.data!.exists) {
-              return Text("Document does not exist");
+              return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Document does not exist"),
+                    ElevatedButton(onPressed:() {
+                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                              builder: (context) => Intro(),
+                            ), (route) => false);
+                      }, 
+                      child: Text('Back'))
+                  ],);
             }
 
             if (snapshot.connectionState == ConnectionState.done) {
@@ -98,7 +130,7 @@ class QuestState extends State<Quest> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   if (currentStep == 0) ...[
-                    Text("Greetings: ${data['greetings']}"),
+                    Text("${data['greetings']}"),
                   ]
                   else ...[
                     Text("Question: ${data['steps'][(currentStep - 1).toString()]['question']}"),
@@ -110,7 +142,10 @@ class QuestState extends State<Quest> {
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           labelText: AppLocalizations.of(context)!.answer + '*',
-                          labelStyle: (answerValidator ?? true) ? const TextStyle(color:Colors.grey) : const TextStyle(color:Colors.red),
+                          labelStyle: (answerValidator) ? const TextStyle(color:Colors.grey) : const TextStyle(color:Colors.red),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: answerValidator ? Colors.blue : Colors.red),
+                          ),
                         ),
                         maxLines: 1,
                       )
@@ -132,15 +167,22 @@ class QuestState extends State<Quest> {
                       Provider.of<Data>(context, listen: false).updateCurrentStep();
                     }          
                     else if (currentStep < data['steps'].length) {
-                      setState(() {
-                        currentStep += 1;
-                      });
-                      Provider.of<Data>(context, listen: false).updateCurrentStep();
+                      _checkAnswer(data['steps'][(currentStep - 1).toString()]['answer']);
+                      if (answerValidator) {
+                        setState(() {
+                          currentStep += 1;
+                        });
+                        Provider.of<Data>(context, listen: false).updateCurrentStep();
+                        answerController.clear();
+                      }
                     } else {
-                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                        builder: (context) => Intro(),
-                      ), (route) => false);
-                      Provider.of<Data>(context, listen: false).deleteStoredQuestId();
+                      _checkAnswer(data['steps'][(currentStep - 1).toString()]['answer']);
+                      if (answerValidator) {
+                        Provider.of<Data>(context, listen: false).deleteStoredQuestId();
+                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                          builder: (context) => Intro(),
+                        ), (route) => false);
+                      }
                     }
                   }, 
                   child: Text('Next'))
