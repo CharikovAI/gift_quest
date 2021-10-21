@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../main.dart';
+import 'finish_quest.dart';
 
 class Quest extends StatefulWidget {
   const Quest({Key? key}) : super(key: key);
@@ -180,7 +181,7 @@ class QuestState extends State<Quest> {
                       if (answerValidator) {
                         Provider.of<Data>(context, listen: false).deleteStoredQuestId();
                         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                          builder: (context) => Intro(),
+                          builder: (context) => FinishQuest(),
                         ), (route) => false);
                       }
                     }
