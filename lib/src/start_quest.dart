@@ -17,6 +17,8 @@ class LoadQuest extends StatefulWidget {
 
 class LoadQuestState extends State<LoadQuest> {
 
+  bool inputValidator = true;
+
   TextEditingController codeController = TextEditingController();
 
   void _scanQR(BuildContext context) async {
@@ -28,6 +30,19 @@ class LoadQuestState extends State<LoadQuest> {
     if (result != null && result != []) {
       setState(() {
         codeController = TextEditingController(text: result);
+      });
+    }
+  }
+
+  void _validateInput() {
+    if (codeController.text.isEmpty) {
+      setState(() {
+        inputValidator = false;
+      });
+    }
+    else {
+      setState(() {
+        inputValidator = true;
       });
     }
   }
@@ -50,16 +65,23 @@ class LoadQuestState extends State<LoadQuest> {
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   labelText: AppLocalizations.of(context)!.question + '*',
+                  labelStyle: (inputValidator) ? const TextStyle(color:Colors.grey) : const TextStyle(color:Colors.red),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: inputValidator ? Colors.blue : Colors.red),
+                  ),
                 ),
                 maxLines: 1,
               )
             ),
             ElevatedButton(
               onPressed: () {
-                Provider.of<Data>(context, listen: false).setStoredQuestId(codeController.text);
-                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                  builder: (context) => const Quest(),
-                ), (route) => false);
+                _validateInput();
+                if (inputValidator) {
+                  Provider.of<Data>(context, listen: false).setStoredQuestId(codeController.text);
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                    builder: (context) => const Quest(),
+                  ), (route) => false);
+                }
               }, 
               child: Text(AppLocalizations.of(context)!.startMyQuest)
             )
