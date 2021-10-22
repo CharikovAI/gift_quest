@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../main.dart';
 import 'intro.dart';
 
 class QuestCreated extends StatelessWidget {
@@ -13,6 +15,7 @@ class QuestCreated extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<Data>(context, listen: false).storeCreatedQuestId(questId);
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.questCreated)),
       body: Column(children: [
@@ -63,9 +66,12 @@ class QuestCreated extends StatelessWidget {
           ),
         ),
         ElevatedButton(
-          onPressed: () => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+          onPressed: () {
+            Provider.of<Data>(context, listen: false).deleteCreatedQuestId();
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
               builder: (context) => const Intro(),
-            ), (route) => false), 
+            ), (route) => false);
+          },
           child: Text(AppLocalizations.of(context)!.iSaveCode)
           )
         ],

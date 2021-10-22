@@ -87,7 +87,7 @@
     "@copied": {
       "description": ""
     },
-    "pleaseSaveQR" : "Please save QR or code because it wouldn't be stored on your phone.",
+    "pleaseSaveQR" : "Please save the code ot take a screenshot of this screen. After pressing this button it will be impossible to restore your code.",
     "@pleaseSaveQR": {
       "description": ""
     },

@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'src/intro.dart';
 import 'src/quest.dart';
+import 'src/quest_created.dart';
 
 void main() {
   runApp(const App());
@@ -42,7 +43,10 @@ class QuestApp extends StatelessWidget {
         //Locale('es', ''), // Spanish, no country code
         Locale('ru', ''), // Russian, no country code
       ],
-      home: Provider.of<Data>(context).questId?.isEmpty ?? true ? const Intro() : const Quest()
+      home: Provider.of<Data>(context).questId?.isEmpty ?? true ? 
+        (Provider.of<Data>(context).createdQuestID?.isEmpty ?? true ?
+          const Intro() : QuestCreated(Provider.of<Data>(context).createdQuestID!)
+        ) : const Quest()
     );
   }
 }
@@ -50,6 +54,7 @@ class QuestApp extends StatelessWidget {
 class Data extends ChangeNotifier {
   String? questId;
   int? currentStep;
+  String? createdQuestID;
 
   Data() {
     init();
@@ -58,6 +63,7 @@ class Data extends ChangeNotifier {
   init() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     questId = prefs.getString('questId');
+    createdQuestID = prefs.getString('createdQuestID');
     currentStep = prefs.getInt('currentStep');
     notifyListeners();
   }
@@ -85,6 +91,20 @@ class Data extends ChangeNotifier {
     currentStep = 0;
     await prefs.setString('questId', '');
     await prefs.setInt('currentStep', 0);
+    notifyListeners();
+  }
+
+  storeCreatedQuestId(String questId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    createdQuestID = questId;
+    await prefs.setString('createdQuestID', questId);
+    notifyListeners();
+  }
+
+  deleteCreatedQuestId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    createdQuestID = null;
+    await prefs.setString('createdQuestID', '');
     notifyListeners();
   }
 }
