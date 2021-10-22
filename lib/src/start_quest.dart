@@ -64,7 +64,7 @@ class LoadQuestState extends State<LoadQuest> {
                 autofocus: false,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: AppLocalizations.of(context)!.question + '*',
+                  labelText: AppLocalizations.of(context)!.questId + '*',
                   labelStyle: (inputValidator) ? const TextStyle(color:Colors.grey) : const TextStyle(color:Colors.red),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: inputValidator ? Colors.blue : Colors.red),

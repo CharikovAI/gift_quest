@@ -142,5 +142,9 @@
     "close" : "Close",
     "@close": {
       "description": ""
+    },
+    "questId" : "Quest ID",
+    "@questId": {
+      "description": ""
     }
 }
