@@ -146,5 +146,23 @@
     "questId" : "Quest ID",
     "@questId": {
       "description": ""
+    },
+    "detailQuestion" : "Question {currentStep}/{stepsLength}:\n{question}",
+    "@detailQuestion": {
+      "description": "",
+      "placeholders": {
+        "currentStep": {
+        "type": "int",
+          "example": "1"
+        },
+        "stepsLength": {
+        "type": "int",
+          "example": "1"
+        },
+        "question": {
+        "type": "String",
+          "example": "Question?"
+        }
+      }
     }
 }

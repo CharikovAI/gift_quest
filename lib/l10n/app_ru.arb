@@ -35,5 +35,6 @@
     "theEnd": "Конец.",
     "hopeYouHaveEnjoyed": "Надеюсь, вам все понравилось!",
     "close": "Закрыть",
-    "questId": "ID квеста"
+    "questId": "ID квеста",
+    "detailQuestion": "Вопрос {currentStep}/{stepsLength}:\n{question}"
 }

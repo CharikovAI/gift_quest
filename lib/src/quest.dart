@@ -37,6 +37,13 @@ class QuestState extends State<Quest> {
         _error = true;
       });
     }
+    setStep();
+  }
+
+  void setStep() {
+    setState(() {
+      currentStep = Provider.of<Data>(context, listen: false).currentStep ?? 0;
+    });
   }
 
   @override
@@ -90,12 +97,12 @@ class QuestState extends State<Quest> {
       return const CircularProgressIndicator();
     }
 
-    CollectionReference users = FirebaseFirestore.instance.collection('quests');
+    CollectionReference quests = FirebaseFirestore.instance.collection('quests');
     questId = Provider.of<Data>(context).questId;
     return Scaffold(
       body: Center(
         child: FutureBuilder<DocumentSnapshot>(
-          future: users.doc(questId).get(),
+          future: quests.doc(questId).get(),
           builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             if (snapshot.hasError) {
               return Column(
@@ -134,7 +141,7 @@ class QuestState extends State<Quest> {
                     Text("${data['greetings']}"),
                   ]
                   else ...[
-                    Text("Question: ${data['steps'][(currentStep - 1).toString()]['question']}"),
+                    Text(AppLocalizations.of(context)!.detailQuestion(currentStep, data['steps'].length, data['steps'][(currentStep - 1).toString()]['question'])),
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: TextField(
@@ -143,7 +150,7 @@ class QuestState extends State<Quest> {
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           labelText: AppLocalizations.of(context)!.answer + '*',
-                          labelStyle: (answerValidator) ? const TextStyle(color:Colors.grey) : const TextStyle(color:Colors.red),
+                          labelStyle: (!answerValidator) ? const TextStyle(color:Colors.red) : null,
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: answerValidator ? Colors.blue : Colors.red),
                           ),
