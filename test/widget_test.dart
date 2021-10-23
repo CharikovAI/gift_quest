@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:gift_quest/main.dart';
+import 'package:gift_quest/src/models/data.dart';
 
 Widget createHomeScreen() => ChangeNotifierProvider<Data>(
   create: (_) => Data(),

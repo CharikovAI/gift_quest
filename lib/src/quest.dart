@@ -5,8 +5,8 @@ import 'package:gift_quest/src/intro.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../main.dart';
 import 'finish_quest.dart';
+import 'models/data.dart';
 
 class Quest extends StatefulWidget {
   const Quest({Key? key}) : super(key: key);

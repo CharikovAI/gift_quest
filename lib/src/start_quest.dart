@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../main.dart';
 import 'qr_scanner.dart';
 import 'quest.dart';
+import 'models/data.dart';
 
 class LoadQuest extends StatefulWidget {
   const LoadQuest({Key? key}) : super(key: key);
