@@ -6,9 +6,9 @@ void main() {
     var data = Data();
 
     test('A class should be initialized with empty values', () {
-      expect(data.questId, isEmpty);
+      expect(data.questId, isNull);
       expect(data.currentStep, equals(0));
-      expect(data.createdQuestID, isEmpty);
+      expect(data.createdQuestID, isNull);
     }); 
     test('A createdQuestId should be stored', () async {
       var createdQuestId = 'testId';

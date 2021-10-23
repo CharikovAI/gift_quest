@@ -91,7 +91,7 @@
     "@pleaseSaveQR": {
       "description": ""
     },
-    "iSaveCode" : "I save the code",
+    "iSaveCode" : "I saved the code",
     "@iSaveCode": {
       "description": ""
     },
