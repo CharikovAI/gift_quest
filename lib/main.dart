@@ -43,8 +43,8 @@ class QuestApp extends StatelessWidget {
         //Locale('es', ''), // Spanish, no country code
         Locale('ru', ''), // Russian, no country code
       ],
-      home: Provider.of<Data>(context).questId?.isEmpty ?? true ? 
-        (Provider.of<Data>(context).createdQuestID?.isEmpty ?? true ?
+      home: Provider.of<Data>(context).questId.isEmpty ? 
+        (Provider.of<Data>(context).createdQuestID.isEmpty ?
           const Intro() : QuestCreated(Provider.of<Data>(context).createdQuestID!)
         ) : const Quest()
     );

@@ -6,16 +6,16 @@ void main() {
     var data = Data();
 
     test('A class should be initialized with empty values', () {
-      expect(data.questId, isNull);
+      expect(data.questId, isEmpty);
       expect(data.currentStep, equals(0));
-      expect(data.createdQuestID, isNull);
+      expect(data.createdQuestID, isEmpty);
     }); 
     test('A createdQuestId should be stored', () async {
       var createdQuestId = 'testId';
       await data.storeCreatedQuestId(createdQuestId);
       expect(data.createdQuestID, equals(createdQuestId));
       await data.deleteCreatedQuestId();
-      expect(data.createdQuestID, isNull);
+      expect(data.createdQuestID, isEmpty);
     });  
     test('An inserted questId should be stored', () async {
       var questId = 'testId';
@@ -30,7 +30,7 @@ void main() {
     });  
     test('The questId should be unstored', () async {
       await data.deleteStoredQuestId();
-      expect(data.questId, isNull);
+      expect(data.questId, isEmpty);
       expect(data.currentStep, equals(0));
     });
   });

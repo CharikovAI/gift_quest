@@ -42,7 +42,7 @@ class QuestState extends State<Quest> {
 
   void setStep() {
     setState(() {
-      currentStep = Provider.of<Data>(context, listen: false).currentStep ?? 0;
+      currentStep = Provider.of<Data>(context, listen: false).currentStep;
     });
   }
 
