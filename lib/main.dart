@@ -17,9 +17,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Data();
     return ChangeNotifierProvider(
       create: (context) => Data(),
-      child: const MaterialApp(
+      child: MaterialApp(
           home: QuestApp()
       ),
     );
@@ -27,8 +28,8 @@ class App extends StatelessWidget {
 }
 
 class QuestApp extends StatelessWidget {
-  const QuestApp({Key? key}) : super(key: key);
-
+  QuestApp({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

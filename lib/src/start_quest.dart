@@ -78,9 +78,8 @@ class LoadQuestState extends State<LoadQuest> {
                 _validateInput();
                 if (inputValidator) {
                   Provider.of<Data>(context, listen: false).setStoredQuestId(codeController.text);
-                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                    builder: (context) => const Quest(),
-                  ), (route) => false);
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const Quest()));
                 }
               }, 
               child: Text(AppLocalizations.of(context)!.startMyQuest)

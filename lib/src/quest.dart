@@ -186,7 +186,6 @@ class QuestState extends State<Quest> {
                     } else {
                       _checkAnswer(data['steps'][(currentStep - 1).toString()]['answer']);
                       if (answerValidator) {
-                        Provider.of<Data>(context, listen: false).deleteStoredQuestId();
                         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                           builder: (context) => const FinishQuest(),
                         ), (route) => false);

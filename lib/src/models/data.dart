@@ -3,9 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class Data extends ChangeNotifier {
-  late String questId;
-  late int currentStep;
-  late String createdQuestID;
+  String questId = '';
+  int currentStep = 0;
+  String createdQuestID = '';
 
   Data() {
     init();
