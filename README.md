@@ -1,4 +1,4 @@
-![build](https://github.com/CharikovAI/gift_quest/.github/workflows/flutter-ci.yml/badge.svg)
+![build](https://github.com/CharikovAI/gift_quest/.github/workflows/flutter-ci.yaml/badge.svg)
 
 # gift_quest
 An application for creating quests (quiz) for your friends and share it to them. 
