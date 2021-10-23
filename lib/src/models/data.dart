@@ -30,9 +30,8 @@ class Data extends ChangeNotifier {
 
   updateCurrentStep() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int currentStep =  prefs.getInt('currentStep') ?? 0;
-    await prefs.setInt('currentStep', currentStep + 1);
-    currentStep += 1;
+    await prefs.setInt('currentStep', currentStep! + 1);
+    currentStep = currentStep! + 1;
     notifyListeners();
   }
 
