@@ -45,7 +45,7 @@ class QuestApp extends StatelessWidget {
       ],
       home: Provider.of<Data>(context).questId.isEmpty ? 
         (Provider.of<Data>(context).createdQuestID.isEmpty ?
-          const Intro() : QuestCreated(Provider.of<Data>(context).createdQuestID!)
+          const Intro() : QuestCreated(Provider.of<Data>(context).createdQuestID)
         ) : const Quest()
     );
   }
